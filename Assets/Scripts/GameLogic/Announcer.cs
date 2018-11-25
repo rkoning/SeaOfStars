@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class Announcer : MonoBehaviour {
 		public static Announcer Instance;
 
@@ -37,7 +37,7 @@ namespace Com.Cegorach.SeaOfStars {
 				rows[i] = Instantiate(playerRowPrefab, new Vector3(0, -scoreBoardRowHeight * i - 5, 0), Quaternion.identity);
 				rows[i].transform.SetParent(scoreBoard.transform, false);
 				rows[i].transform.GetChild(0).GetComponentsInChildren<Text>()[0].text = kvp.Value.name;
-				rows[i].transform.GetChild(0).GetComponentsInChildren<Text>()[1].text = kvp.Value.ToString();
+				rows[i].transform.GetChild(0).GetComponentsInChildren<Text>()[1].text = kvp.Value.score.ToString();
 				i++;
 			}
 			scoreBoard.SetActive(false);

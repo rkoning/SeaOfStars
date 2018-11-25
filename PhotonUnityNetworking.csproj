@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{7C2D8FEA-B89C-0F00-5E3E-2EA604AB84B4}</ProjectGuid>
+    <ProjectGuid>{B63A106B-80A1-DFDB-8116-B8ECB8005E19}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>PhotonUnityNetworking</AssemblyName>
@@ -304,13 +304,13 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="Photon3Unity3D">
- <HintPath>E:/UnityProjects/Photon Flying/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
  </Reference>
  <Reference Include="websocket-sharp">
- <HintPath>E:/UnityProjects/Photon Flying/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>E:/UnityProjects/Photon Flying/Assets/Photon/PhotonUnityNetworking/Code/Editor/Newtonsoft.Json.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Assets/Photon/PhotonUnityNetworking/Code/Editor/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Users/rkoni/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -357,7 +357,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonRealtime.csproj">
-      <Project>{71FDFEA3-170B-470F-25EC-72EC2712CD9D}</Project>      <Name>PhotonRealtime</Name>    </ProjectReference>
+      <Project>{E005FD31-3E15-8384-4CA1-C0385DF7F52E}</Project>      <Name>PhotonRealtime</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

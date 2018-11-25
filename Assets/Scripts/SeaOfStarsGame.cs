@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 
 	public enum GameMode {
 		Deathmatch,
@@ -10,18 +10,22 @@ namespace Com.Cegorach.SeaOfStars {
 	}
 
 	public class SeaOfStarsGame {
-		public const float PLAYER_RESPAWN_TIME = 4.0F;
+		public const float PLAYER_RESPAWN_TIME = 3.0F;
 		public const int PLAYER_MAX_LIVES = 3;
 
 		public const string PLAYER_LIVES = "PlayerLives";
 		public const string PLAYER_READY = "IsPlayerReady";
 		public const string PLAYER_LOADED_LEVEL = "PlayerLoadedLevel";
 		public const string PLAYER_SCORE = "PlayerScore";
+		public const string PLAYER_SELECTED_SHIP = "PlayerSelectedShip";
+		public const string PLAYER_SELECTED_PRIMARY_WEAPON = "PlayerSelectedPrimaryWeapon";
+		public const string PLAYER_SELECTED_SECONDARY_WEAPON = "PlayerSelectedSecondary";
 
 		public const string ROOM_SELECTED_STAGE = "RoomSelectedStage";
 		public const string ROOM_SELECTED_GAME_MODE = "RoomSelectedGameMode";
 
 		public const string DEATHMATCH_SCORE_TO_WIN = "DeathmatchScoreToWin";
+
 
 		public static Color GetColor(int colorChoice)
 		{

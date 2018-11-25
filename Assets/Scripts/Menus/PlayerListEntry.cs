@@ -6,7 +6,7 @@ using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using Photon.Pun;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class PlayerListEntry : MonoBehaviour {
 
 		[Header("UI References")]
@@ -41,7 +41,12 @@ namespace Com.Cegorach.SeaOfStars {
 								isPlayerReady = !isPlayerReady;
 								SetPlayerReady(isPlayerReady);
 
-								Hashtable props = new Hashtable() {{SeaOfStarsGame.PLAYER_READY, isPlayerReady}};
+								Hashtable props = new Hashtable() {
+									{SeaOfStarsGame.PLAYER_READY, isPlayerReady},
+									{SeaOfStarsGame.PLAYER_SELECTED_SHIP, "Duo"},
+									{SeaOfStarsGame.PLAYER_SELECTED_PRIMARY_WEAPON, "LaserLance"},
+									{SeaOfStarsGame.PLAYER_SELECTED_SECONDARY_WEAPON, "LaserLance"},
+								};
 								PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
 								if (PhotonNetwork.IsMasterClient)

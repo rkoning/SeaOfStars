@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class RaceGate : MonoBehaviour {
 
 		public RaceGate nextGate;

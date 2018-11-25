@@ -6,13 +6,11 @@ using UnityEngine.UI;
 
 using Photon.Pun;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class PlayerHealth : Health {
 
 		public Slider healthBar;
 
-		[SerializeField]
-		private GameObject shipBody;
 		private Rigidbody rb;
 		private bool dead = false;
 		private int lastHit = -1;

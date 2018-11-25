@@ -4,15 +4,15 @@ using UnityEngine;
 
 using Photon.Pun;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public abstract class Health : MonoBehaviourPunCallbacks, IPunObservable {
 
 		public int maxHealth;
 		protected int currentHealth;
 		public int CurrentHealth { get { return currentHealth; } }
 
-		[SerializeField]
-		private Renderer recolorSurface;
+		public Renderer recolorSurface;
+		public GameObject shipBody;
 		private Material defaultMaterial;
 		public Material hitMaterial;
 

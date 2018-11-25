@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{8DE9B376-F29F-AC8F-1686-1D776B8A6B5E}</ProjectGuid>
+    <ProjectGuid>{025A0107-7647-ACDC-73E7-BF87117798EA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -165,6 +165,7 @@
      <Compile Include="Assets\Scripts\Combat\Health.cs" />
      <Compile Include="Assets\Scripts\Combat\Laser.cs" />
      <Compile Include="Assets\Scripts\Combat\Weapon.cs" />
+     <Compile Include="Assets\Scripts\Combat\WeaponSystems.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Announcer.cs" />
      <Compile Include="Assets\Scripts\GameLogic\BasicPlayerSpawner.cs" />
      <Compile Include="Assets\Scripts\GameLogic\DeathmatchGameLogic.cs" />
@@ -179,33 +180,39 @@
      <Compile Include="Assets\Scripts\Menus\PostGameLobby.cs" />
      <Compile Include="Assets\Scripts\Menus\RoomBrowser.cs" />
      <Compile Include="Assets\Scripts\Menus\RoomListEntry.cs" />
+     <Compile Include="Assets\Scripts\Menus\ShipDescription.cs" />
+     <Compile Include="Assets\Scripts\Menus\Stage.cs" />
      <Compile Include="Assets\Scripts\Menus\StageListEntry.cs" />
+     <Compile Include="Assets\Scripts\Menus\WeaponDescription.cs" />
      <Compile Include="Assets\Scripts\Player\CameraController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerHUD.cs" />
      <Compile Include="Assets\Scripts\Player\Ship.cs" />
+     <Compile Include="Assets\Scripts\Player\ShipInfo.cs" />
      <Compile Include="Assets\Scripts\SeaOfStarsGame.cs" />
+     <None Include="Assets\HologramShader.shader" />
      <None Include="Assets\Photon\PhotonUnityNetworking\link.xml" />
      <None Include="Assets\Photon\PhotonUnityNetworking\Demos\DemoSlotRacer\Kenney Assets\Copyrights.txt" />
      <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.xml" />
      <None Include="Assets\Photon\PhotonLibs\release_history.txt" />
+     <None Include="Assets\Shaders\HologramShader.shader" />
      <None Include="Assets\Photon\PhotonUnityNetworking\Demos\Shared Assets\Skin\eurof_tt.txt" />
      <None Include="Assets\The_Texture_Lab\TL_Prototype_Textures_Pack\Documentation.txt" />
      <None Include="Assets\Photon\PhotonUnityNetworking\Demos\Shared Assets\Skin\3dText.shader" />
      <None Include="Assets\Photon\PhotonUnityNetworking\readme.txt" />
      <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />
  <Reference Include="UnityEditor.StandardEvents">
- <HintPath>E:/UnityProjects/Photon Flying/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>E:/UnityProjects/Photon Flying/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
- <HintPath>E:/UnityProjects/Photon Flying/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>E:/UnityProjects/Photon Flying/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -406,10 +413,10 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="Photon3Unity3D">
- <HintPath>E:/UnityProjects/Photon Flying/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
  </Reference>
  <Reference Include="websocket-sharp">
- <HintPath>E:/UnityProjects/Photon Flying/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/rkoni/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
@@ -447,21 +454,21 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj">
-      <Project>{411A7A26-6758-2CB9-A5F3-6CA85EF6E25D}</Project>      <Name>PhotonUnityNetworking.Utilities.PhotonPlayer.Editor</Name>    </ProjectReference>
+      <Project>{C75D2512-20B3-3A33-D6E2-1FCB1A7F410C}</Project>      <Name>PhotonUnityNetworking.Utilities.PhotonPlayer.Editor</Name>    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
-      <Project>{9635629E-9B17-E950-CE0F-178055BF3F08}</Project>      <Name>PhotonUnityNetworking.Utilities</Name>    </ProjectReference>
+      <Project>{A2C1F3E3-629B-2D67-A9A4-A6C1B0763955}</Project>      <Name>PhotonUnityNetworking.Utilities</Name>    </ProjectReference>
     <ProjectReference Include="PhotonWebSocket.csproj">
-      <Project>{9DDA0112-F5E2-01DB-6204-20C662252CC9}</Project>      <Name>PhotonWebSocket</Name>    </ProjectReference>
+      <Project>{07EEEB39-B864-5F39-8804-41D416CBDD6B}</Project>      <Name>PhotonWebSocket</Name>    </ProjectReference>
     <ProjectReference Include="PhotonRealtime.csproj">
-      <Project>{71FDFEA3-170B-470F-25EC-72EC2712CD9D}</Project>      <Name>PhotonRealtime</Name>    </ProjectReference>
+      <Project>{E005FD31-3E15-8384-4CA1-C0385DF7F52E}</Project>      <Name>PhotonRealtime</Name>    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.csproj">
-      <Project>{7C2D8FEA-B89C-0F00-5E3E-2EA604AB84B4}</Project>      <Name>PhotonUnityNetworking</Name>    </ProjectReference>
+      <Project>{B63A106B-80A1-DFDB-8116-B8ECB8005E19}</Project>      <Name>PhotonUnityNetworking</Name>    </ProjectReference>
     <ProjectReference Include="PhotonChat.csproj">
-      <Project>{C7988998-3025-D146-F063-B09F13317CB8}</Project>      <Name>PhotonChat</Name>    </ProjectReference>
+      <Project>{A2B56E65-19E0-15D3-D85C-60E2EF8238AA}</Project>      <Name>PhotonChat</Name>    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Utilities.Culling.Editor.csproj">
-      <Project>{407E239B-D8DE-436C-777F-48146924CE18}</Project>      <Name>PhotonUnityNetworking.Utilities.Culling.Editor</Name>    </ProjectReference>
+      <Project>{0DF23A39-6F29-9C9D-76B6-F26AAF25DD56}</Project>      <Name>PhotonUnityNetworking.Utilities.Culling.Editor</Name>    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Editor.csproj">
-      <Project>{BB8E6FAE-8D99-BB3F-04BE-CA9636E0933C}</Project>      <Name>PhotonUnityNetworking.Editor</Name>    </ProjectReference>
+      <Project>{C373620F-FD41-581F-183E-519E0C158CCE}</Project>      <Name>PhotonUnityNetworking.Editor</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

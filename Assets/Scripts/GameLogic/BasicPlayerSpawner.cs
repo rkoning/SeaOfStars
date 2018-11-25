@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class BasicPlayerSpawner : MonoBehaviourPunCallbacks {
 
 		public GameObject playerPrefab;

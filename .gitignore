@@ -1,3 +1,4 @@
-Temp/UnityLockFile
-Assets/Photon/PhotonUnityNetworking/Demos
-Library
+/Temp
+/Assets/Photon/PhotonUnityNetworking/Demos
+/Library
+/Builds

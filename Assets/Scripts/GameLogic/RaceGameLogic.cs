@@ -7,15 +7,19 @@ using Photon.Realtime;
 
 using ExitGames.Client.Photon;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class RaceGameLogic : GameLogic, IOnEventCallback {
 
 		private Transform raceGatesParent;
 		private RaceGate[] raceGates;
 
-		private int numLaps;
+		private int numLaps = 1;
+
+		private int numPlayersFinished = 0;
+		private int numPlayers;
 
 		private readonly byte setPlayerSpawnEvent = 0;
+		private readonly byte playerScoredEvent = 1;
 
 		void Start() {
 			SetupGates();
@@ -27,6 +31,8 @@ namespace Com.Cegorach.SeaOfStars {
 					transform.GetChild(i).gameObject.SetActive(false);
 				}
 			}
+
+			numPlayers = PhotonNetwork.IsConnected ? PhotonNetwork.PlayerList.Length : 1;
 			SpawnPlayers();
 		}
 
@@ -69,19 +75,69 @@ namespace Com.Cegorach.SeaOfStars {
 			}
 		}
 
+		//
+		// Returns the players last spawnPosition and rotation
+		//
 		public override object[] GetSpawnPoint(int playerID) {
-			Debug.Log(playerID);
 			return new object[] {players[playerID].spawnPosition, players[playerID].spawnRotation};
 		}
 
+		//
+		// OnPlayerDeath is ignored in Race mode
+		//
 		public override void OnPlayerDeath(int playerID, int enemyID) {
-
+			return;
 		}
 
+		//
+		// Score is called whenever a player finishes a lap, once the score for a player is over numLaps, they have finished the race.
+		//
 		public override void Score(int playerID, int points) {
+			if (PhotonNetwork.IsConnected) {
+				PhotonNetwork.RaiseEvent(
+					playerScoredEvent,
+					new object[] {points, playerID},
+					new RaiseEventOptions { Receivers = ReceiverGroup.All },
+					new SendOptions { Reliability = true }
+				);
+			} else {
+				IncrementPlayerScore(playerID, points);
+			}
 		}
 
-		public void OnSetSpawnPoint(Dictionary<byte, object> parameters)	{
+		public void OnPlayerScored(Dictionary<byte, object> parameters) {
+			object[] _data = (object[])parameters[(byte) 245];
+			int _points = (int)_data[0];
+			int _playerID = (int) _data[1];
+			IncrementPlayerScore(_playerID, _points);
+		}
+
+		//
+		// Adds to a players score and shows a notice, if the players score is greater than the number of laps
+		// that must be completed, they have finished the race.
+		//
+		private void IncrementPlayerScore(int playerID, int points) {
+			players[playerID].AddScore(points);
+			if (players[playerID].score > numLaps) {
+				PlayerFinished(playerID);
+				Announcer.Instance.ShowNotice(players[playerID].name + " Finished!");
+			} else {
+				Announcer.Instance.ShowNotice("Lap " + players[playerID].score + "/" + numLaps);
+			}
+		}
+
+		private void PlayerFinished(int playerID) {
+			numPlayersFinished += 1;
+			Debug.Log("Player Finished: " + playerID);
+			Debug.Log(numPlayersFinished);
+			if (numPlayersFinished >= numPlayers - 1) {
+				Announcer.Instance.ShowScoreBoard();
+				SettleMatch();
+				StartCoroutine(WaitThenEndGame(endGameWait));
+			}
+		}
+
+		public void OnSetSpawnPoint(Dictionary<byte, object> parameters) {
 			object[] _data = (object[])parameters[(byte) 245];
 			Vector3 _spawnPosition = (Vector3)_data[0];
 			Quaternion _spawnRotation = (Quaternion)_data[1];
@@ -92,6 +148,8 @@ namespace Com.Cegorach.SeaOfStars {
 		public void OnEvent(EventData photonEvent) {
 			if (photonEvent.Code == setPlayerSpawnEvent) {
 				OnSetSpawnPoint(photonEvent.Parameters);
+			} else if (photonEvent.Code == playerScoredEvent) {
+				OnPlayerScored(photonEvent.Parameters);
 			}
 
 			// OnSetSpawnPointEvent(photonEvent.Code, photonEvent.content, photonEvent.raiseEventOptions, photonEvent.sendOptions);

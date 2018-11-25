@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 
 	public class PlayerInfo {
 		public string name;
@@ -35,7 +35,6 @@ namespace Com.Cegorach.SeaOfStars {
 		}
 
 		public void SetSpawnPoint(Vector3 spawnPosition, Quaternion spawnRotation) {
-			Debug.Log(id + " " + spawnPosition + " " + spawnRotation);
 			this.spawnPosition = spawnPosition;
 			this.spawnRotation = spawnRotation;
 		}

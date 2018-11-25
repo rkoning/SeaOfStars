@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 using Photon.Pun;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class RoomListEntry : MonoBehaviour {
 		public Text RoomNameText;
 		public Text RoomPlayersText;

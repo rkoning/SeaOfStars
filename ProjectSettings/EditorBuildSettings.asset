@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/RoomBrowser.unity
     guid: 8b974b17fc88c7a4cba71e479f47f13a
   - enabled: 1
-    path: Assets/Scenes/TestScene.unity
+    path: Assets/Scenes/Cubed.unity
     guid: a628e1e8dc3b8d948b9c6a59278a7b7b
   - enabled: 1
     path: Assets/Scenes/TestScene2.unity
@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SimpleRaceTest.unity
     guid: 7d91055644814354c93c3a0e8012ab9d
+  - enabled: 1
+    path: Assets/Scenes/RaceTest.unity
+    guid: 0090b0994627f1c4db5b7c03da80fe1f
   m_configObjects: {}

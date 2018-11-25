@@ -125,12 +125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c03b35ed78dfa45a6cd52681ff741f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageName: TestScene
-  gameModes: 0000000001000000
+  stage: {fileID: 0}
   stageNameText: {fileID: 114194095220289866}
   selectButton: {fileID: 114974771071226196}
   selectedIndicator: {fileID: 114517419745107144}
   selectedColor: {r: 0.15690637, g: 0.8113208, b: 0.69836867, a: 0.6862745}
+  originalColor: {r: 0.4433962, g: 0.3994749, b: 0.3994749, a: 0.5294118}
 --- !u!114 &114367378599211446
 MonoBehaviour:
   m_ObjectHideFlags: 1

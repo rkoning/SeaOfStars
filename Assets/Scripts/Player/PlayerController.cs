@@ -1,7 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class PlayerController : MonoBehaviourPunCallbacks {
 
 		public static GameObject LocalPlayerInstance;
@@ -56,7 +56,7 @@ namespace Com.Cegorach.SeaOfStars {
 				actorNumber = photonView.Owner.ActorNumber;
 			} else {
 				name = "Player 1";
-				actorNumber = 0;
+				actorNumber = 0;				
 			}
 
 			isLocal = true;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class OptionsMenu : MonoBehaviour {
 
 		const string playerNamePrefKey = "PlayerName";
@@ -24,14 +24,10 @@ namespace Com.Cegorach.SeaOfStars {
 		}
 
 		public void SetPlayerName(string value) {
-			if (string.IsNullOrEmpty(value))
-			{
-					Debug.LogError("Player Name is null or empty");
-					return;
+			if (string.IsNullOrEmpty(value)) {
+				return;
 			}
 			PhotonNetwork.NickName = value;
-
-
 			PlayerPrefs.SetString(playerNamePrefKey,value);
 		}
 	}

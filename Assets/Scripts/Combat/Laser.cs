@@ -4,29 +4,31 @@ using UnityEngine;
 
 using Photon.Pun;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class Laser : Weapon {
 
 		public float duration;
 		public float range;
 		public LayerMask mask;
-		public Transform[] firingPoints;
 
 		private float durationEnd;
 		private bool isFiring;
 		private LineRenderer[] beams;
+		public Material beamMaterial;
+		public float beamThickness;
 
 		void Start() {
-			Debug.Log(photonView.IsMine);
 			beams = new LineRenderer[firingPoints.Length];
 			for (int i = 0; i < firingPoints.Length; i++) {
-				beams[i] = firingPoints[i].GetComponent<LineRenderer>();
+				beams[i] = firingPoints[i].gameObject.AddComponent<LineRenderer>();
+				beams[i].material = beamMaterial;
+				beams[i].widthMultiplier = beamThickness;
 				beams[i].enabled = false;
 			}
 		}
 
 		void Update() {
-			if ((photonView.IsMine || PhotonNetwork.IsConnected == false) && Time.fixedTime > durationEnd) {
+			if (Time.fixedTime > durationEnd) {
 					isFiring = false;
 			}
 			if (isFiring) {
@@ -38,8 +40,8 @@ namespace Com.Cegorach.SeaOfStars {
 			}
 		}
 
-		public override bool Fire() {
-			if (base.Fire()) {
+		public override bool OnTap() {
+			if (base.OnTap()) {
 				isFiring = true;
 				durationEnd = Time.fixedTime + duration;
 				return true;
@@ -47,15 +49,15 @@ namespace Com.Cegorach.SeaOfStars {
 			return false;
 		}
 
-		public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-			if (stream.IsWriting) {
-    		// We own this player: send the others our data
-				stream.SendNext(isFiring);
-			} else {
-				// Network player: read the stream
-				isFiring = (bool)stream.ReceiveNext();
-			}
-		}
+		// public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+		// 	if (stream.IsWriting) {
+    // 		// We own this player: send the others our data
+		// 		stream.SendNext(isFiring);
+		// 	} else {
+		// 		// Network player: read the stream
+		// 		isFiring = (bool)stream.ReceiveNext();
+		// 	}
+		// }
 
 		protected void FireBeam(Transform origin, LineRenderer beam) {
 			beam.enabled = true;
@@ -64,7 +66,7 @@ namespace Com.Cegorach.SeaOfStars {
 				beam.SetPositions( new Vector3[] {origin.position, hit.point} );
 				var h = hit.collider.GetComponent<Health>();
 				if (h != null) {
-					h.TakeDamage(damage, photonView.Owner.ActorNumber);
+					// h.TakeDamage(damage, photonView.Owner.ActorNumber);
 				}
 			} else {
 				beam.SetPositions( new Vector3[] {origin.position, origin.position + origin.forward * range} );

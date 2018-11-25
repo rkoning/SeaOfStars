@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class StageListEntry : MonoBehaviour {
 
-		public string stageName;
-		public GameMode[] gameModes;
+		public Stage stage;
 
 		[SerializeField]
 		private Text stageNameText;
@@ -18,24 +17,24 @@ namespace Com.Cegorach.SeaOfStars {
 
 		[SerializeField]
 		private Color selectedColor;
+		[SerializeField]
 		private Color originalColor;
 
 		private RoomBrowser browser;
 		public RoomBrowser Browser { set { browser = value; } }
 
 		void Start() {
-			originalColor = selectedIndicator.color;
-			stageNameText.text = stageName;
+			// originalColor = selectedIndicator.color;
+			stageNameText.text = stage.name;
+			selectButton.onClick.AddListener(delegate { browser.SetStage(this); } );
 		}
 
 		public void OnSelect() {
 			foreach(var sle in FindObjectsOfType<StageListEntry>()) {
 				sle.OnDeselect();
+				Debug.Log(sle);
 			}
 			selectedIndicator.color = selectedColor;
-			if (browser != null) {
-				browser.SetStage(this);
-			}
 		}
 
 		public void OnDeselect() {

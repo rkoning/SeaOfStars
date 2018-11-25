@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{9DDA0112-F5E2-01DB-6204-20C662252CC9}</ProjectGuid>
+    <ProjectGuid>{07EEEB39-B864-5F39-8804-41D416CBDD6B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>PhotonWebSocket</AssemblyName>
@@ -293,13 +293,13 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="Photon3Unity3D">
- <HintPath>E:/UnityProjects/Photon Flying/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Assets/Photon/PhotonLibs/Photon3Unity3D.dll</HintPath>
  </Reference>
  <Reference Include="websocket-sharp">
- <HintPath>E:/UnityProjects/Photon Flying/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>E:/UnityProjects/Photon Flying/Assets/Photon/PhotonUnityNetworking/Code/Editor/Newtonsoft.Json.dll</HintPath>
+ <HintPath>E:/UnityProjects/SeaOfStars/Assets/Photon/PhotonUnityNetworking/Code/Editor/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Users/rkoni/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>

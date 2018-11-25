@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class RoomBrowser : MonoBehaviourPunCallbacks {
 
     [Header("Create Room Panel")]
@@ -56,7 +56,7 @@ namespace Com.Cegorach.SeaOfStars {
 		[SerializeField]
 		private Text subtitleText;
 		[SerializeField]
-		private GameObject[] stages;
+		private Stage[] stages;
 
 		private string selectedStage;
 		private string selectedGameMode;
@@ -71,7 +71,6 @@ namespace Com.Cegorach.SeaOfStars {
 
 		void Awake() {
 			PhotonNetwork.AutomaticallySyncScene = true;
-
 	    cachedRoomList = new Dictionary<string, RoomInfo>();
 	    roomListEntries = new Dictionary<string, GameObject>();
 		}
@@ -80,6 +79,8 @@ namespace Com.Cegorach.SeaOfStars {
 			SetActivePanel(progressText.name);
 			if (!PhotonNetwork.IsConnected) {
 				PhotonNetwork.ConnectUsingSettings();
+			} else {
+				SetActivePanel(browserPanel.name);
 			}
 
 			string _name = PlayerPrefs.GetString("PlayerName");
@@ -90,8 +91,7 @@ namespace Com.Cegorach.SeaOfStars {
 		// Photon Callbacks
 		public override void OnConnectedToMaster() {
 		   Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
-			 if (!PhotonNetwork.InLobby)
-			 {
+			 if (!PhotonNetwork.InLobby) {
 				 PhotonNetwork.JoinLobby();
 			 }
 			 SetActivePanel(browserPanel.name);
@@ -261,17 +261,17 @@ namespace Com.Cegorach.SeaOfStars {
       startGameButton.gameObject.SetActive(CheckPlayersReady());
     }
 
-		public void SetStage(StageListEntry stage) {
-			selectedStage = stage.stageName;
-			selectedGameMode = stage.gameModes[0].ToString();
+		public void SetStage(StageListEntry sle) {
+			selectedStage = sle.stage.name;
+			selectedGameMode = sle.stage.gameModes[0].ToString();
 			ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable {
-				{SeaOfStarsGame.ROOM_SELECTED_STAGE, stage.stageName},
-				{SeaOfStarsGame.ROOM_SELECTED_GAME_MODE, stage.gameModes[0].ToString()},
+				{SeaOfStarsGame.ROOM_SELECTED_STAGE, selectedStage},
+				{SeaOfStarsGame.ROOM_SELECTED_GAME_MODE, selectedGameMode},
 				{SeaOfStarsGame.DEATHMATCH_SCORE_TO_WIN, 3}
 			};
 			PhotonNetwork.CurrentRoom.SetCustomProperties(props);
-
-			PopulateGameModes(stage.gameModes);
+			sle.OnSelect();
+			PopulateGameModes(sle.stage.gameModes);
 		}
 
 		public void SetGameMode(string gameMode) {
@@ -296,8 +296,10 @@ namespace Com.Cegorach.SeaOfStars {
 
 		private void InitializeStageList() {
 			for (int i = 0; i < stages.Length; i++) {
-				var _stageListEntry = Instantiate(stages[i], i * new Vector3(0, 120 * i, 0), Quaternion.identity, stageListContent.transform);
+				var _stageListEntry = Instantiate(stageListEntryPrefab, i * new Vector3(0, 120 * i, 0), Quaternion.identity, null);
+				_stageListEntry.transform.SetParent(stageListContent.transform);
 				FormatListEntry(_stageListEntry, i);
+				_stageListEntry.GetComponent<StageListEntry>().stage = stages[i];
 				_stageListEntry.GetComponent<StageListEntry>().Browser = this;
 			}
 			SetStage(FindObjectOfType<StageListEntry>());

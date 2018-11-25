@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 using Photon.Pun;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class PlayerHUD : MonoBehaviourPunCallbacks {
 
 		private PlayerController player;
@@ -14,7 +14,7 @@ namespace Com.Cegorach.SeaOfStars {
 		private GameObject healthBar;
 
 		private GameObject menu;
-		public float menuInputDelay = 0.2f;
+		public float menuInputDelay = 0.4f;
 		private float nextMenuInput;
 
 		public Vector3 screenOffset = new Vector3(0, 30, 0);

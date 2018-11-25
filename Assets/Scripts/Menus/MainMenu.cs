@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 using Photon.Pun;
 
-namespace Com.Cegorach.SeaOfStars {
+namespace Com.RyanKoning.SeaOfStars {
 	public class MainMenu : MonoBehaviour {
 
 		// string gameVersion = "1";

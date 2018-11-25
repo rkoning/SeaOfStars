@@ -1183,9 +1183,10 @@ MonoBehaviour:
   stageListContent: {fileID: 1404978328}
   subtitleText: {fileID: 567774017}
   stages:
-  - {fileID: 1405644427789646, guid: 384e91452ca81ae4f930f6fec5fcc1c8, type: 2}
-  - {fileID: 1897336194622056, guid: 872715781fe78c7489aec27170a94b37, type: 2}
-  - {fileID: 1897336194622056, guid: 7f6ea833cab1cac4797bd889d5d34a6b, type: 2}
+  - {fileID: 11400000, guid: ee5542905dfa2084ba9e980e60407694, type: 2}
+  - {fileID: 11400000, guid: 38b645d05c2b689448fec1b54d9b977f, type: 2}
+  - {fileID: 11400000, guid: 2e78afde8d0b1ed46bbb802928512556, type: 2}
+  - {fileID: 11400000, guid: 86cfe871112f721478fa0f2a522af360, type: 2}
   gameModeDropdown: {fileID: 2078885195}
 --- !u!1 &469614878
 GameObject:
@@ -2099,8 +2100,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 54388162}
   m_HandleRect: {fileID: 54388161}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3911,7 +3912,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1365478427}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999785
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4158,7 +4159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000002589567}
+  m_AnchoredPosition: {x: 0, y: 0.000074034586}
   m_SizeDelta: {x: 0, y: -1.0752536}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1414923070
@@ -4618,7 +4619,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0000025344693}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: -1.0752536}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1626982224
