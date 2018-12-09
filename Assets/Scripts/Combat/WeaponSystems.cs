@@ -7,11 +7,12 @@ using Photon.Pun;
 namespace Com.RyanKoning.SeaOfStars {
 	public class WeaponSystems : MonoBehaviourPunCallbacks, IPunObservable {
 
-		private bool primaryTapped;
+		private bool primaryInput;
 		private bool primaryHeld;
 		private float primaryHoldTime;
+		private bool primaryTapped;
 
-		private bool secondaryTapped;
+		private bool secondaryInput;
 		private bool secondaryHeld;
 		private float secondaryHoldTime;
 
@@ -22,26 +23,40 @@ namespace Com.RyanKoning.SeaOfStars {
 
 		public PlayerController player;
 
-		void Start() {
-			if (PhotonNetwork.IsConnected) {
-
-			} else {
-			}
-		}
-
 		void Update() {
 			if (!PhotonNetwork.IsConnected || photonView.IsMine) {
-				primaryTapped = player.PrimaryFireInput;
-				secondaryTapped = player.SecondaryFireInput;
+				primaryInput = player.PrimaryFireInput;
+				secondaryInput = player.SecondaryFireInput;
 			}
 
-			if (primaryTapped) {
-				for(int i = 0; i < primaryGroup.Count; i++) {
-					primaryGroup[i].OnTap();
+			if (primaryInput) {
+				if (!primaryTapped) {
+					Debug.Log("Tap");
+					primaryTapped = true;
+					for(int i = 0; i < primaryGroup.Count; i++) {
+						primaryGroup[i].OnTap();
+					}
+					primaryHoldTime = holdTime + Time.fixedTime;
+				} else if (primaryHoldTime < Time.fixedTime) {
+					Debug.Log("Hold");
+					primaryHeld = true;
+					for (int i = 0; i < primaryGroup.Count; i++) {
+						primaryGroup[i].OnHold();
+					}
 				}
+			} else {
+				if (primaryHeld) {
+					Debug.Log("Release");
+					for(int i = 0; i < primaryGroup.Count; i++) {
+						primaryGroup[i].OnRelease();
+					}
+				}
+				primaryTapped = false;
+				primaryHeld = false;
+
 			}
 
-			if (secondaryTapped) {
+			if (secondaryInput) {
 				for(int i = 0; i < secondaryGroup.Count; i++) {
 					secondaryGroup[i].OnTap();
 				}
@@ -51,12 +66,12 @@ namespace Com.RyanKoning.SeaOfStars {
 		public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 			if (stream.IsWriting) {
 				// We own this player: send the others our data
-				stream.SendNext(primaryTapped);
-				stream.SendNext(secondaryTapped);
+				stream.SendNext(primaryInput);
+				stream.SendNext(secondaryInput);
 			} else {
 				// Network player: read the stream
-				primaryTapped = (bool)stream.ReceiveNext();
-				secondaryTapped = (bool)stream.ReceiveNext();
+				primaryInput = (bool)stream.ReceiveNext();
+				secondaryInput = (bool)stream.ReceiveNext();
 			}
 		}
 

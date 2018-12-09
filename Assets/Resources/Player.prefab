@@ -30,6 +30,7 @@ GameObject:
   - component: {fileID: 114373274153595302}
   - component: {fileID: 114519641190309502}
   - component: {fileID: 114129595477102892}
+  - component: {fileID: 114319558668044228}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -138,7 +139,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1751347220064716}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: -1, z: 150}
+  m_LocalPosition: {x: 0, y: -1, z: 300}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4245214444111490}
@@ -279,7 +280,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114196451497860718}
   - {fileID: 114129595477102892}
-  - {fileID: 114519641190309502}
+  - {fileID: 114319558668044228}
   viewIdField: 0
   InstantiationId: 1
   isRuntimeInstantiated: 0
@@ -294,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97eaaf23392bcc8409563afbf9a90099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdTime: 0.2
+  holdTime: 1
   primaryGroup: []
   secondaryGroup: []
   player: {fileID: 114884551271740548}
@@ -316,6 +317,21 @@ MonoBehaviour:
   flashDuration: 0.2
   deathParticles: {fileID: 198047225216641416}
   healthBar: {fileID: 0}
+--- !u!114 &114319558668044228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1127869064892702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 5
 --- !u!114 &114373274153595302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -354,7 +370,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1127869064892702}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
@@ -5113,7 +5129,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 500
+      scalar: 1500
       minScalar: 5
       maxCurve:
         serializedVersion: 2

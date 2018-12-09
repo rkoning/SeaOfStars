@@ -12,7 +12,6 @@ namespace Com.RyanKoning.SeaOfStars {
 		public LayerMask mask;
 
 		private float durationEnd;
-		private bool isFiring;
 		private LineRenderer[] beams;
 		public Material beamMaterial;
 		public float beamThickness;
@@ -49,16 +48,6 @@ namespace Com.RyanKoning.SeaOfStars {
 			return false;
 		}
 
-		// public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-		// 	if (stream.IsWriting) {
-    // 		// We own this player: send the others our data
-		// 		stream.SendNext(isFiring);
-		// 	} else {
-		// 		// Network player: read the stream
-		// 		isFiring = (bool)stream.ReceiveNext();
-		// 	}
-		// }
-
 		protected void FireBeam(Transform origin, LineRenderer beam) {
 			beam.enabled = true;
 			RaycastHit hit;
@@ -66,7 +55,7 @@ namespace Com.RyanKoning.SeaOfStars {
 				beam.SetPositions( new Vector3[] {origin.position, hit.point} );
 				var h = hit.collider.GetComponent<Health>();
 				if (h != null) {
-					// h.TakeDamage(damage, photonView.Owner.ActorNumber);
+					h.TakeDamage(damage, playerNumber);
 				}
 			} else {
 				beam.SetPositions( new Vector3[] {origin.position, origin.position + origin.forward * range} );

@@ -9,56 +9,52 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1551617739073240}
+  m_RootGameObject: {fileID: 1405463672293320}
   m_IsPrefabAsset: 1
---- !u!1 &1551617739073240
+--- !u!1 &1405463672293320
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4724071627887362}
-  - component: {fileID: 114762300762724118}
+  - component: {fileID: 4987524438384434}
+  - component: {fileID: 114870048733535964}
   m_Layer: 0
-  m_Name: LaserLance
+  m_Name: ProjectileWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4724071627887362
+--- !u!4 &4987524438384434
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1551617739073240}
-  m_LocalRotation: {x: -0, y: -0.7071067, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.008910795, y: 0.008910793, z: 0.008910793}
+  m_GameObject: {fileID: 1405463672293320}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.0117188, y: 125.875, z: -141.42188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114762300762724118
+--- !u!114 &114870048733535964
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1551617739073240}
+  m_GameObject: {fileID: 1405463672293320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c204ce26859f4b42aeb891ad6451e48, type: 3}
+  m_Script: {fileID: 11500000, guid: 545b4e7f7467e39488a9e8f3073953ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
-  coolDown: 0.3
+  damage: 50
+  coolDown: 0.2
   firingPoints: []
   playerNumber: 0
-  duration: 0.1
-  range: 500
-  mask:
-    serializedVersion: 2
-    m_Bits: 1335
-  beamMaterial: {fileID: 2100000, guid: 409bf720e9924426b9f253cf037a8f4e, type: 2}
-  beamThickness: 0.25
+  projectilePrefab: {fileID: 1411961675460010, guid: 7c1f74048ade588468f0ecd6ce137f13,
+    type: 2}
+  maxProjectiles: 20

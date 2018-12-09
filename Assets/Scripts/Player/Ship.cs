@@ -40,15 +40,17 @@ namespace Com.RyanKoning.SeaOfStars {
 					var _weaponObj = (GameObject) Instantiate(Resources.Load("Weapons/" + _primaryName, typeof(GameObject)), transform.position, transform.rotation, transform);
 					var _weapon = _weaponObj.GetComponent<Weapon>();
 					GetComponent<WeaponSystems>().primaryGroup.Add(_weapon);
+					_weapon.playerNumber = photonView.Owner.ActorNumber;
 					_weapon.firingPoints = _si.primaryGroupFirePoints;
 				}
 
 				object _secondary;
-				if (photonView.Owner.CustomProperties.TryGetValue(SeaOfStarsGame.PLAYER_SELECTED_PRIMARY_WEAPON, out _secondary)) {
+				if (photonView.Owner.CustomProperties.TryGetValue(SeaOfStarsGame.PLAYER_SELECTED_SECONDARY_WEAPON, out _secondary)) {
 					string _secondaryName = (string) _secondary;
 					var _weaponObj = (GameObject) Instantiate(Resources.Load("Weapons/" + _secondaryName, typeof(GameObject)), transform.position, transform.rotation, transform);
 					var _weapon = _weaponObj.GetComponent<Weapon>();
 					GetComponent<WeaponSystems>().secondaryGroup.Add(_weapon);
+					_weapon.playerNumber = photonView.Owner.ActorNumber;
 					_weapon.firingPoints = _si.secondaryGroupFirePoints;
 
 				}

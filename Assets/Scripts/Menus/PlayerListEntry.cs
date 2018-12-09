@@ -44,8 +44,8 @@ namespace Com.RyanKoning.SeaOfStars {
 								Hashtable props = new Hashtable() {
 									{SeaOfStarsGame.PLAYER_READY, isPlayerReady},
 									{SeaOfStarsGame.PLAYER_SELECTED_SHIP, "Duo"},
-									{SeaOfStarsGame.PLAYER_SELECTED_PRIMARY_WEAPON, "LaserLance"},
-									{SeaOfStarsGame.PLAYER_SELECTED_SECONDARY_WEAPON, "LaserLance"},
+									{SeaOfStarsGame.PLAYER_SELECTED_PRIMARY_WEAPON, "Minigun"},
+									{SeaOfStarsGame.PLAYER_SELECTED_SECONDARY_WEAPON, "ProjectileWeapon"},
 								};
 								PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 

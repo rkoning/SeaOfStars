@@ -164,6 +164,10 @@
      <Compile Include="Assets\Photon\PhotonUnityNetworking\Demos\Shared Assets\Scripts\DocLinks.cs" />
      <Compile Include="Assets\Scripts\Combat\Health.cs" />
      <Compile Include="Assets\Scripts\Combat\Laser.cs" />
+     <Compile Include="Assets\Scripts\Combat\ParticleDamage.cs" />
+     <Compile Include="Assets\Scripts\Combat\ParticleSystemWeapon.cs" />
+     <Compile Include="Assets\Scripts\Combat\Projectile.cs" />
+     <Compile Include="Assets\Scripts\Combat\ProjectileWeapon.cs" />
      <Compile Include="Assets\Scripts\Combat\Weapon.cs" />
      <Compile Include="Assets\Scripts\Combat\WeaponSystems.cs" />
      <Compile Include="Assets\Scripts\GameLogic\Announcer.cs" />
