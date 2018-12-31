@@ -17,44 +17,32 @@ namespace Com.RyanKoning.SeaOfStars {
 		public float baseThrustForce;
 		public float brakeForce;
 		public float thrustForce;
-
-		// [Header("Weapons")]
-		// public Weapon[] primaryGroup;
-
-		// private Vector3 networkedPosition;
-		// private Quaternion networkedRotation;
-		// private Vector3 networkedSpeed;
+		private ShipInfo info;
 
 		void Awake() {
-			object _selectedShip;
-			if (photonView.Owner.CustomProperties.TryGetValue(SeaOfStarsGame.PLAYER_SELECTED_SHIP, out _selectedShip)) {
-				string _shipName = (string) _selectedShip;
-				var _hull = (GameObject) Instantiate(Resources.Load(_shipName, typeof(GameObject)), transform.position, transform.rotation, transform);
-				var _si = _hull.GetComponent<ShipInfo>();
-
-				GetComponent<Health>().recolorSurface = _si.recolorSurface;
+			if (PhotonNetwork.IsConnected) {
+				object _selectedShip;
+				if (photonView.Owner.CustomProperties.TryGetValue(SeaOfStarsGame.PLAYER_SELECTED_SHIP, out _selectedShip)) {
+					string _shipName = (string) _selectedShip;
+					var _hull = (GameObject) Instantiate(Resources.Load("Ships/" + _shipName, typeof(GameObject)), transform.position, transform.rotation, transform);
+					info = _hull.GetComponent<ShipInfo>();
+					GetComponent<Health>().recolorSurface = info.recolorSurface;
+					GetComponent<Health>().shipBody = _hull;
+				}
+			} else {
+				string _shipName = "Duo";
+				var _hull = (GameObject) Instantiate(Resources.Load("Ships/" + _shipName, typeof(GameObject)), transform.position, transform.rotation, transform);
+				info = _hull.GetComponent<ShipInfo>();
+				GetComponent<Health>().recolorSurface = info.recolorSurface;
 				GetComponent<Health>().shipBody = _hull;
-				object _primary;
-				if (photonView.Owner.CustomProperties.TryGetValue(SeaOfStarsGame.PLAYER_SELECTED_PRIMARY_WEAPON, out _primary)) {
-					string _primaryName = (string) _primary;
-					var _weaponObj = (GameObject) Instantiate(Resources.Load("Weapons/" + _primaryName, typeof(GameObject)), transform.position, transform.rotation, transform);
-					var _weapon = _weaponObj.GetComponent<Weapon>();
-					GetComponent<WeaponSystems>().primaryGroup.Add(_weapon);
-					_weapon.playerNumber = photonView.Owner.ActorNumber;
-					_weapon.firingPoints = _si.primaryGroupFirePoints;
-				}
-
-				object _secondary;
-				if (photonView.Owner.CustomProperties.TryGetValue(SeaOfStarsGame.PLAYER_SELECTED_SECONDARY_WEAPON, out _secondary)) {
-					string _secondaryName = (string) _secondary;
-					var _weaponObj = (GameObject) Instantiate(Resources.Load("Weapons/" + _secondaryName, typeof(GameObject)), transform.position, transform.rotation, transform);
-					var _weapon = _weaponObj.GetComponent<Weapon>();
-					GetComponent<WeaponSystems>().secondaryGroup.Add(_weapon);
-					_weapon.playerNumber = photonView.Owner.ActorNumber;
-					_weapon.firingPoints = _si.secondaryGroupFirePoints;
-
-				}
 			}
+
+			yawTorque = info.yawTorque;
+			rollTorque = info.rollTorque;
+			pitchTorque = info.pitchTorque;
+			baseThrustForce = info.baseThrustForce;
+			brakeForce = info.brakeForce;
+			thrustForce = info.thrustForce;
 		}
 
 		void Start() {
@@ -75,13 +63,6 @@ namespace Com.RyanKoning.SeaOfStars {
 					(rollTorque * p.RollInput * transform.forward) +
 					(pitchTorque * p.PitchInput * transform.right)
 				);
-
-				// to be handled by weapon systems
-				// if (p.PrimaryFireInput) {
-				// 	for (int i = 0; i < primaryGroup.Length; i++) {
-				// 		primaryGroup[i].Fire();
-				// 	}
-				// }
 			}
 		}
 	}

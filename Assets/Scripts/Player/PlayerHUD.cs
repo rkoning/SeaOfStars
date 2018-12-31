@@ -12,6 +12,11 @@ namespace Com.RyanKoning.SeaOfStars {
 		private PlayerHealth health;
 		public GameObject healthBarPrefab;
 		private GameObject healthBar;
+		public GameObject weaponIndicatorPrefab;
+		[HideInInspector]
+		public GameObject primaryIndicator;
+		[HideInInspector]
+		public GameObject secondaryIndicator;
 
 		private GameObject menu;
 		public float menuInputDelay = 0.4f;
@@ -19,7 +24,7 @@ namespace Com.RyanKoning.SeaOfStars {
 
 		public Vector3 screenOffset = new Vector3(0, 30, 0);
 
-		void Start() {
+		void Awake() {
 			health = GetComponent<PlayerHealth>();
 			player = GetComponent<PlayerController>();
 			var _canvas = FindObjectOfType<Canvas>();
@@ -33,13 +38,19 @@ namespace Com.RyanKoning.SeaOfStars {
 
 			if (player.photonView.IsMine || !PhotonNetwork.IsConnected) {
 				healthBar.GetComponentInChildren<Text>().enabled = false;
+				primaryIndicator = GameObject.Instantiate(weaponIndicatorPrefab);
+				primaryIndicator.transform.SetParent(_canvas.transform, false);
+				secondaryIndicator = GameObject.Instantiate(weaponIndicatorPrefab);
+				secondaryIndicator.transform.SetParent(_canvas.transform, false);
+				secondaryIndicator.GetComponent<RectTransform>().anchoredPosition += new Vector2(0, 30);
 			} else {
-				healthBar.GetComponentInChildren<Text>().text = photonView.Owner.NickName;
+				Destroy(healthBar);
+				// healthBar.GetComponentInChildren<Text>().text = photonView.Owner.NickName;
 			}
 		}
 
 		void LateUpdate() {
-			if (player.photonView.IsMine || !PhotonNetwork.IsConnected){
+			if (player.photonView.IsMine || !PhotonNetwork.IsConnected) {
 				if (Time.fixedTime > nextMenuInput) {
 					if (player.MenuInput) {
 						nextMenuInput = Time.fixedTime + menuInputDelay;
@@ -50,7 +61,7 @@ namespace Com.RyanKoning.SeaOfStars {
 					}
 				}
 			} else {
-				healthBar.transform.position = Camera.main.WorldToScreenPoint (player.transform.position) + screenOffset;
+				// healthBar.transform.position = Camera.main.WorldToScreenPoint (player.transform.position) + screenOffset;
 			}
 		}
 

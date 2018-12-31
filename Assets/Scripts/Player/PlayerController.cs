@@ -37,7 +37,7 @@ namespace Com.RyanKoning.SeaOfStars {
 
 		private CameraController cam;
 
-		private string name;
+		private new string name;
 		public string Name { get { return name; } }
 
 		private bool isLocal;
@@ -56,7 +56,7 @@ namespace Com.RyanKoning.SeaOfStars {
 				actorNumber = photonView.Owner.ActorNumber;
 			} else {
 				name = "Player 1";
-				actorNumber = 0;				
+				actorNumber = 0;
 			}
 
 			isLocal = true;

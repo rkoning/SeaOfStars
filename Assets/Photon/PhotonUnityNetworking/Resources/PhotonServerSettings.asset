@@ -33,4 +33,5 @@ MonoBehaviour:
   - RespawnSpaceship
   - StageChanged
   - OnPlayerDeath
+  - OnShipTextChange
   DisableAutoOpenWizard: 1

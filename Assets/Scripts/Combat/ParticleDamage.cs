@@ -5,15 +5,10 @@ using UnityEngine;
 namespace Com.RyanKoning.SeaOfStars {
 	public class ParticleDamage : MonoBehaviour {
 
-		private ParticleSystem particles;
 		[HideInInspector]
 		public int damage;
 		[HideInInspector]
 		public int playerNumber;
-
-		void Start() {
-			particles = GetComponent<ParticleSystem>();
-		}
 
 		void OnParticleCollision(GameObject other) {
 			var _hp = other.GetComponent<Health>();

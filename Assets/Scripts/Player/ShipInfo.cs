@@ -2,10 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipInfo : MonoBehaviour {
+namespace Com.RyanKoning.SeaOfStars {
+	public class ShipInfo : MonoBehaviour {
 
-	public Transform[] primaryGroupFirePoints;
-	public Transform[] secondaryGroupFirePoints;
-	public Renderer recolorSurface;
+		public new string name;
+		public Transform[] primaryGroupFirePoints;
+		public WeaponType[] primaryAcceptedTypes;
+		public Transform[] secondaryGroupFirePoints;
+		public WeaponType[] secondaryAcceptedTypes;
+		public Renderer recolorSurface;
 
+		public float yawTorque;
+		public float rollTorque;
+		public float pitchTorque;
+		public float baseThrustForce;
+		public float brakeForce;
+		public float thrustForce;
+
+		public int health;
+
+	}
 }

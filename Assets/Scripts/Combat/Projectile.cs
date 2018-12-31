@@ -10,14 +10,10 @@ namespace Com.RyanKoning.SeaOfStars {
 		[SerializeField]
 		private float speed;
 		private Rigidbody rb;
+		private float ignoreCollisionsUntil = 0.25f;
 
 		void Awake() {
 			rb = GetComponent<Rigidbody>();
-		}
-
-		public void Launch(Vector3 direction) {
-			rb.velocity = Vector3.zero;
-			rb.AddForce(speed * direction);
 		}
 
 		void OnCollisionEnter(Collision other) {
@@ -28,5 +24,18 @@ namespace Com.RyanKoning.SeaOfStars {
 			}
 			gameObject.SetActive(false);
 		}
+
+		public void Launch(Vector3 direction) {
+			StartCoroutine(WaitThenCollide());
+			rb.velocity = Vector3.zero;
+			rb.AddForce(speed * direction);
+		}
+
+		private IEnumerator WaitThenCollide() {
+			GetComponent<Collider>().enabled = false;
+			yield return new WaitForSeconds(ignoreCollisionsUntil);
+			GetComponent<Collider>().enabled = true;
+		}
+
 	}
 }

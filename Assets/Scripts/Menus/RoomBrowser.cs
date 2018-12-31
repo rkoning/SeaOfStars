@@ -38,7 +38,7 @@ namespace Com.RyanKoning.SeaOfStars {
 		[SerializeField]
 		private GameObject roomLobbyPanel;
 		[SerializeField]
-		private GameObject playerListContent;
+		public GameObject playerListContent;
 		[SerializeField]
 		private GameObject playerListEntryPrefab;
 		[SerializeField]
@@ -65,9 +65,17 @@ namespace Com.RyanKoning.SeaOfStars {
 		[SerializeField]
 		private Dropdown gameModeDropdown;
 
+		[Header("Loadout Selection")]
+		[SerializeField]
+		private Transform loadoutListContent;
+		[SerializeField]
+		private GameObject loadoutListEntryPrefab;
+
 	  private Dictionary<string, RoomInfo> cachedRoomList;
 	  private Dictionary<string, GameObject> roomListEntries;
 		private Dictionary<int, GameObject> playerListEntries;
+
+		private PlayerListEntry localListEntry;
 
 		void Awake() {
 			PhotonNetwork.AutomaticallySyncScene = true;
@@ -105,9 +113,8 @@ namespace Com.RyanKoning.SeaOfStars {
 		// called when we join a room
 		// finds the stage name if we are not the host, then creates list entries for each player (including us) that is in the room
 		public override void OnJoinedRoom() {
-
 			SetActivePanel(roomLobbyPanel.name);
-
+			InitializeLoadoutList();
 			hostOptions.SetActive(PhotonNetwork.IsMasterClient);
 			if (PhotonNetwork.IsMasterClient) {
 				InitializeStageList();
@@ -125,19 +132,25 @@ namespace Com.RyanKoning.SeaOfStars {
 				playerListEntries = new Dictionary<int, GameObject>();
 			}
 
-			foreach(Player p in PhotonNetwork.PlayerList) {
-				GameObject entry = Instantiate(playerListEntryPrefab);
+			// if (PhotonNetwork.IsMasterClient) {
+			// foreach(Player p in PhotonNetwork.PlayerList) {
+			// 	GameObject entry = PhotonNetwork.Instantiate(playerListEntryPrefab.name, Vector3.zero, Quaternion.identity, 0);
+			// 	entry.transform.SetParent(playerListContent.transform);
+			// 	FormatListEntry(entry, p.ActorNumber);
+			// 	entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
+			//
+			// 	object isPlayerReady;
+			// 	if (p.CustomProperties.TryGetValue(SeaOfStarsGame.PLAYER_READY, out isPlayerReady)) {
+			// 		entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
+			// 	}
+			// }
+			// }
 
-				entry.transform.SetParent(playerListContent.transform);
-				FormatListEntry(entry, p.ActorNumber);
-				entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
-
-				object isPlayerReady;
-				if (p.CustomProperties.TryGetValue(SeaOfStarsGame.PLAYER_READY, out isPlayerReady)) {
-					entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
-				}
-				playerListEntries.Add(p.ActorNumber, entry);
-			}
+			GameObject entry = PhotonNetwork.Instantiate(playerListEntryPrefab.name, Vector3.zero, Quaternion.identity, 0);
+			entry.transform.SetParent(playerListContent.transform);
+			FormatListEntry(entry, PhotonNetwork.LocalPlayer.ActorNumber);
+			entry.GetComponent<PlayerListEntry>().Initialize(PhotonNetwork.LocalPlayer.ActorNumber, PhotonNetwork.LocalPlayer.NickName);
+			localListEntry = entry.GetComponent<PlayerListEntry>();
 
 			startGameButton.gameObject.SetActive(CheckPlayersReady());
 			ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable {
@@ -147,34 +160,30 @@ namespace Com.RyanKoning.SeaOfStars {
 		}
 
 		public override void OnLeftRoom() {
-				SetActivePanel(browserPanel.name);
-
-				foreach (GameObject entry in playerListEntries.Values)
-				{
-						Destroy(entry.gameObject);
-				}
-
-				playerListEntries.Clear();
-				playerListEntries = null;
+			SetActivePanel(browserPanel.name);
+			playerListEntries.Clear();
+			playerListEntries = null;
 		}
 
 		// Called when a remote player enters the room
 		public override void OnPlayerEnteredRoom(Player newPlayer) {
-				GameObject entry = Instantiate(playerListEntryPrefab);
-				entry.transform.SetParent(playerListContent.transform);
-				FormatListEntry(entry, newPlayer.ActorNumber);
-				entry.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
-
-				playerListEntries.Add(newPlayer.ActorNumber, entry);
-
-				startGameButton.gameObject.SetActive(CheckPlayersReady());
+			// PlayerListEntry newPlayerEntry = null;
+			// foreach (PhotonView v in FindObjectsOfType<PhotonView>()) {
+			// 	if (v.OwnerActorNr == newPlayer.ActorNumber) {
+			// 		newPlayerEntry = v.gameObject.GetComponent<PlayerListEntry>();
+			// 	}
+			// 	Debug.Log(v.OwnerActorNr);
+			// }
+			// Debug.Log(newPlayer.ActorNumber);
+			// playerListEntries.Add(newPlayer.ActorNumber, newPlayerEntry.gameObject);
+			startGameButton.gameObject.SetActive(CheckPlayersReady());
 		}
 
+		// called when a remote player leaves the room
 		public override void OnPlayerLeftRoom(Player otherPlayer) {
-				Destroy(playerListEntries[otherPlayer.ActorNumber].gameObject);
-				playerListEntries.Remove(otherPlayer.ActorNumber);
-
-				startGameButton.gameObject.SetActive(CheckPlayersReady());
+			playerListEntries.Remove(otherPlayer.ActorNumber);
+			startGameButton.gameObject.SetActive(CheckPlayersReady());
+			Debug.Log(PhotonNetwork.PlayerList.Length);
 		}
 
 		public override void OnMasterClientSwitched(Player newMasterClient) {
@@ -184,7 +193,6 @@ namespace Com.RyanKoning.SeaOfStars {
 		}
 
 		public void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps) {
-			Debug.Log("Updated Player props");
 			if (playerListEntries == null) {
 				playerListEntries = new Dictionary<int, GameObject>();
 			}
@@ -196,12 +204,10 @@ namespace Com.RyanKoning.SeaOfStars {
 					entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
 				}
 			}
-
 			startGameButton.gameObject.SetActive(CheckPlayersReady());
 		}
 
 		public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable changedProps) {
-			Debug.Log("Updated Room Props");
 			object _stageName;
 			object _gameMode;
 			if (changedProps.TryGetValue(SeaOfStarsGame.ROOM_SELECTED_GAME_MODE, out _gameMode)) {
@@ -234,7 +240,8 @@ namespace Com.RyanKoning.SeaOfStars {
 
 		public void OnLeaveGameButtonClicked()
 		{
-				PhotonNetwork.LeaveRoom();
+			PhotonNetwork.Destroy(localListEntry.gameObject);
+			PhotonNetwork.LeaveRoom();
 		}
 
 		public void OnStartGameButtonClicked()
@@ -303,6 +310,23 @@ namespace Com.RyanKoning.SeaOfStars {
 				_stageListEntry.GetComponent<StageListEntry>().Browser = this;
 			}
 			SetStage(FindObjectOfType<StageListEntry>());
+		}
+
+		private void InitializeLoadoutList() {
+			LoadoutManager lm = new LoadoutManager();
+			Loadout[] loadouts = lm.GetAllLoadouts();
+			for (int i = 0; i < loadouts.Length; i++) {
+				var _loadoutEntry = Instantiate(loadoutListEntryPrefab, new Vector3(0, -110 * i, 0), Quaternion.identity, null);
+				_loadoutEntry.transform.SetParent(loadoutListContent, false);
+				var _thisLoadout = loadouts[i];
+				_loadoutEntry.GetComponentInChildren<Button>().onClick.AddListener(delegate { SetLoadout(_thisLoadout); } );
+				_loadoutEntry.GetComponentInChildren<Button>().interactable = _thisLoadout.IsComplete();
+				_loadoutEntry.GetComponentInChildren<Text>().text = _thisLoadout.name;
+			}
+		}
+
+		public void SetLoadout(Loadout selected) {
+			localListEntry.GetComponent<PlayerListEntry>().OnSetLoadout(selected);
 		}
 
 		private void ClearRoomList() {
@@ -382,7 +406,7 @@ namespace Com.RyanKoning.SeaOfStars {
 			return true;
 		}
 
-		private void FormatListEntry(GameObject entry, int index) {
+		public void FormatListEntry(GameObject entry, int index) {
 			var rt = entry.GetComponent<RectTransform>();
 			rt.offsetMin = new Vector2(0,0);
 			rt.offsetMax = new Vector2(0,100);

@@ -296,8 +296,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdTime: 1
-  primaryGroup: []
-  secondaryGroup: []
+  primary:
+    group: []
+    timeToHold: 0
+  secondary:
+    group: []
+    timeToHold: 0
   player: {fileID: 114884551271740548}
 --- !u!114 &114196451497860718
 MonoBehaviour:
@@ -345,7 +349,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarPrefab: {fileID: 1484440267029968, guid: 39f27afb03e7cbc43bf6f12e416ab205,
     type: 2}
-  menuInputDelay: 0.1
+  weaponIndicatorPrefab: {fileID: 1269102821571874, guid: e258002622000dd458d687ebc1ad47e7,
+    type: 2}
+  primaryIndicator: {fileID: 0}
+  secondaryIndicator: {fileID: 0}
+  menuInputDelay: 0.25
   screenOffset: {x: 0, y: 30, z: 0}
 --- !u!114 &114424969384049866
 MonoBehaviour:

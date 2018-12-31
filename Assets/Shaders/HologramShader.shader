@@ -68,10 +68,11 @@ Shader "Unlit/HologramShader"
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
 
-				col = _Color * max(0, cos(i.objVertex.y * _ScanningFrequency + _Time.x * _ScanningSpeed) + cos(rand(i.objVertex.x)) * _Bias);
+				col = _Color * max(0, cos((i.objVertex.y) * _ScanningFrequency + _Time.x * _ScanningSpeed) + cos(rand(i.objVertex.x)) * _Bias);
 				// sub lines
 				//col += _SecondaryColor * (1 - max(0, cos(i.objVertex.y * _ScanningFrequency + _Time.x * 3 * _ScanningSpeed))) / 4;
-				col += _SecondaryColor * (1 - max(0, cos((i.objVertex.z + i.objVertex.x) * _ScanningFrequency + _Time.x * _ScanningSpeed)  + 0.9));
+				col += _SecondaryColor * (1 - max(0, cos((i.objVertex.z + i.objVertex.x) * _ScanningFrequency + _Time.x * _ScanningSpeed)  + i.objVertex.z * _Bias * -_Time.x));
+
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, col);
 				return col;

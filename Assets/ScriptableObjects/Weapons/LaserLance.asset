@@ -11,10 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8dd021e4b9d9e24bb8ff82990d9b3c2, type: 3}
   m_Name: LaserLance
   m_EditorClassIdentifier: 
-  name: Lance
-  prefabPath: Weapons/LaserLance
+  name: Laser Lance
+  prefabPath: LaserLance
   type: 0
-  disjointed: 0
   damage: 0
   range: 0
   cooldown: 0

@@ -16,17 +16,24 @@ namespace Com.RyanKoning.SeaOfStars {
 		public Material beamMaterial;
 		public float beamThickness;
 
-		void Start() {
+		protected override void Start() {
+			base.Start();
+
+			// initialize all beams, if a line renderer already exists on the firingPoint, use it, otherwise add the component to it.
 			beams = new LineRenderer[firingPoints.Length];
 			for (int i = 0; i < firingPoints.Length; i++) {
-				beams[i] = firingPoints[i].gameObject.AddComponent<LineRenderer>();
+				var rend = firingPoints[i].gameObject.GetComponent<LineRenderer>();
+				if (rend == null)
+				  rend = firingPoints[i].gameObject.AddComponent<LineRenderer>();
+				beams[i] = rend;
 				beams[i].material = beamMaterial;
 				beams[i].widthMultiplier = beamThickness;
 				beams[i].enabled = false;
 			}
 		}
 
-		void Update() {
+		protected override void Update() {
+			base.Update();
 			if (Time.fixedTime > durationEnd) {
 					isFiring = false;
 			}
@@ -64,8 +71,18 @@ namespace Com.RyanKoning.SeaOfStars {
 
 		protected void DisableBeams() {
 			foreach(var beam in beams) {
-				beam.enabled = false;
+				if (beam != null)
+					beam.enabled = false;
 			}
+		}
+
+		public override void Unequip() {
+			// Remove any line renderers that were created in Start
+			for (int i = 0; i < beams.Length; i++) {
+				Destroy(beams[i]);
+			}
+			beams = new LineRenderer[0];
+			base.Unequip();
 		}
 	}
 }

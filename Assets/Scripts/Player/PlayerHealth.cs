@@ -16,6 +16,7 @@ namespace Com.RyanKoning.SeaOfStars {
 		private int lastHit = -1;
 
 		protected override void Start() {
+			maxHealth = GetComponentInChildren<ShipInfo>().health;
 			base.Start();
 			rb = GetComponent<Rigidbody>();
 		}
@@ -60,7 +61,7 @@ namespace Com.RyanKoning.SeaOfStars {
 		IEnumerator Respawn(float respawnTime) {
 			yield return new WaitForSeconds(respawnTime);
 			// Get a spawnPoint and set our position / rotation
-			var spawnPoint = GameLogic.Instance.GetSpawnPoint(photonView.Owner.ActorNumber);
+			var spawnPoint = GameLogic.Instance.GetSpawnPoint(GetComponent<PlayerController>().ActorNumber);
 			transform.position = (Vector3)spawnPoint[0];
 			transform.rotation = (Quaternion)spawnPoint[1];
 			// Reset attributes

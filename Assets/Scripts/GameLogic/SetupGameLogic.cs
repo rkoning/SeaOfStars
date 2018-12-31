@@ -29,7 +29,7 @@ namespace Com.RyanKoning.SeaOfStars {
 					SceneManager.LoadScene(0);
 				}
 			} else {
-				logic = gameObject.AddComponent<RaceGameLogic>();
+				logic = gameObject.AddComponent<DeathmatchGameLogic>();
 				logic.playerPrefab = playerPrefab;
 				logic.respawnTime = respawnTime;
 			}

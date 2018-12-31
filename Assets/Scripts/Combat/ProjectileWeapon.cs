@@ -11,7 +11,8 @@ namespace Com.RyanKoning.SeaOfStars {
 		private int maxProjectiles;
 		private int currentProjectile = 0;
 
-		void Start() {
+		protected override void Start() {
+			base.Start();
 			projectiles = new GameObject[maxProjectiles];
 
 			for (int i = 0; i < maxProjectiles; i++) {
@@ -45,6 +46,14 @@ namespace Com.RyanKoning.SeaOfStars {
 			currentProjectile++;
 			if (currentProjectile > maxProjectiles - 1)
 				currentProjectile = 0;
+		}
+
+		public override void Unequip() {
+			for(int i = 0; i < projectiles.Length; i++) {
+				if (projectiles[i] != null)
+					Destroy(projectiles[i]);
+			}
+			base.Unequip();
 		}
 	}
 }

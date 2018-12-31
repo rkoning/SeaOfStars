@@ -8,7 +8,8 @@ namespace Com.RyanKoning.SeaOfStars {
 		public ParticleSystem[] projectors;
 		private ParticleSystem prefab;
 
-		void Start() {
+		protected override void Start() {
+			base.Start();
 			prefab = GetComponentInChildren<ParticleSystem>();
 			projectors = new ParticleSystem[firingPoints.Length];
 			for (int i = 0; i < firingPoints.Length; i++) {
@@ -25,18 +26,25 @@ namespace Com.RyanKoning.SeaOfStars {
 			return isFiring;
 		}
 
-		public override void OnHold() {
-			for (int i = 0; i < projectors.Length; i++) {
-				projectors[i].Play();
+		public override bool OnHold() {
+			if (base.OnHold()) {
+				for (int i = 0; i < projectors.Length; i++) {
+					projectors[i].Play();
+				}
+				return true;
 			}
+			return false;
 		}
 
-		public override void OnRelease() {
-			for (int i = 0; i < projectors.Length; i++) {
-				projectors[i].Stop();
+		public override bool OnRelease() {
+			if (base.OnRelease()) {
+				for (int i = 0; i < projectors.Length; i++) {
+					projectors[i].Stop();
+				}
+				return true;
 			}
+			return false;
 		}
-
 		// void Update() {
 		// 	if (isFiring) {
 		// 		if (Time.fixedTime < nextShot)
